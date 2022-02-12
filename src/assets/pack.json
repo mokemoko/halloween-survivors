@@ -1,0 +1,26 @@
+{
+  "preload": {
+    "files": [
+      {
+        "type": "bitmapFont",
+        "key": "dotFont",
+        "textureURL": "/src/assets/font/font.png",
+        "fontDataURL": "/src/assets/font/font.fnt"
+      },
+      {
+        "type": "image",
+        "key": "top",
+        "url": "/src/assets/other/top.png"
+      },
+      {
+        "type": "spritesheet",
+        "key": "player",
+        "url": "/src/assets/sprites/player.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      }
+    ]
+  }
+}
