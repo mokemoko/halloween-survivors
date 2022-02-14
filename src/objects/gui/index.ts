@@ -1,6 +1,7 @@
 import { Gauge } from './gauge'
 import { GameState } from '../../state'
 import { TimeText } from './timeText'
+import { ResetButton } from './resetButton'
 
 export class GUI extends Phaser.GameObjects.Container {
   private readonly gauge: Gauge
@@ -25,5 +26,13 @@ export class GUI extends Phaser.GameObjects.Container {
   update() {
     this.gauge.update()
     this.timeText.update(this.gameState.duration)
+  }
+
+  endGame() {
+    this.add(new ResetButton({
+      scene: this.scene,
+      x: this.scene.sys.canvas.width / 2,
+      y: this.scene.sys.canvas.height - 100,
+    }))
   }
 }

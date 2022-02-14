@@ -16,6 +16,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'player', 1)
     this.setScale(2).setDepth(DEPTH.PLAYER)
 
+
     this.gameState = gameState
 
     this.setupAnim()
@@ -23,6 +24,8 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     scene.physics.world.enable(this)
     scene.add.existing(this)
+
+    ;(this.body as Phaser.Physics.Arcade.Body).setCircle(10, 6, 6)
   }
 
   update() {
@@ -43,6 +46,11 @@ export class Player extends Phaser.GameObjects.Sprite {
       }
     }
     this.gameState.position = [this.body.position.x, this.body.position.y]
+  }
+
+  endGame() {
+    (this.body as Phaser.Physics.Arcade.Body).stop()
+    this.anims.stop()
   }
 
   setupAnim() {

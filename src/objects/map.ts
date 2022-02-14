@@ -9,9 +9,9 @@ interface MapParams {
 }
 
 export class Map extends Phaser.GameObjects.Container {
-  private gameState: GameState
+  private readonly gameState: GameState
   private currentChunk: [number, number]
-  private chunks: Record<string, Phaser.GameObjects.Image>
+  private readonly chunks: Record<string, Phaser.GameObjects.Image>
 
   constructor({ scene, gameState }: MapParams) {
     super(scene)

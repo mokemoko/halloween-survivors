@@ -25,6 +25,42 @@
           "frameWidth": 32,
           "frameHeight": 32
         }
+      },
+      {
+        "type": "spritesheet",
+        "key": "ghost",
+        "url": "/src/assets/sprites/ghost.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "bone",
+        "url": "/src/assets/sprites/bone.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "pumpkin",
+        "url": "/src/assets/sprites/pumpkin.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "bat",
+        "url": "/src/assets/sprites/bat.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
       }
     ]
   }

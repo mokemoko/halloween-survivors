@@ -2,13 +2,14 @@ import { GUI } from '../objects/gui'
 import { Map } from '../objects/map'
 import { defaultGameState, GameState } from '../state'
 import { Player } from '../objects/player'
+import { Enemy } from '../objects/enemy'
 
 export class GameScene extends Phaser.Scene {
   private gui: GUI
   private map: Map
   private player: Player
+  private enemies: Phaser.GameObjects.Group
 
-  private timer: Phaser.Time.TimerEvent
   private gameState: GameState
 
   constructor() {
@@ -17,14 +18,9 @@ export class GameScene extends Phaser.Scene {
     })
   }
 
-  init(): void {
-    this.player = null
-
-    this.timer = undefined
-    this.gameState = defaultGameState
-  }
-
   create(): void {
+    this.gameState = defaultGameState()
+
     this.map = new Map({
       scene: this,
       gameState: this.gameState,
@@ -38,7 +34,21 @@ export class GameScene extends Phaser.Scene {
     })
     this.sys.cameras.main.startFollow(this.player)
 
-    this.timer = this.time.addEvent({
+    this.enemies = this.add.group({ classType: Enemy })
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => this.enemies.add(new Enemy({
+        scene: this,
+        gameState: this.gameState,
+        x: 0,
+        y: 0,
+      })),
+      callbackScope: this,
+      loop: true,
+    })
+    this.physics.add.collider(this.enemies, this.enemies)
+
+    this.time.addEvent({
       delay: 1000,
       callback: () => {
         this.gameState.duration += 1
@@ -57,9 +67,27 @@ export class GameScene extends Phaser.Scene {
   }
 
   update(): void {
+    if (this.gameState.isDead) {
+      return
+    }
     this.gui.update()
     this.map.update()
     this.player.update()
-    // this.physics.overlap(this.player, [], () => {}, null, this)
+    this.enemies.getChildren().forEach(enemy => enemy.update())
+    this.physics.overlap(
+      this.player,
+      this.enemies,
+      this.gameOver,
+      null,
+      this,
+    )
+  }
+
+  gameOver() {
+    this.gameState.isDead = true
+    this.time.removeAllEvents()
+    this.player.endGame()
+    this.enemies.getChildren().forEach(enemy => (enemy as Enemy).endGame())
+    this.gui.endGame()
   }
 }
