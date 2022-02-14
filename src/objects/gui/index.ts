@@ -2,6 +2,7 @@ import { Gauge } from './gauge'
 import { GameState } from '../../state'
 import { TimeText } from './timeText'
 import { ResetButton } from './resetButton'
+import { DEPTH } from '../../constant'
 
 export class GUI extends Phaser.GameObjects.Container {
   private readonly gauge: Gauge
@@ -10,7 +11,7 @@ export class GUI extends Phaser.GameObjects.Container {
 
   constructor({ scene, x, y, gameState }: { scene: Phaser.Scene, gameState: GameState, x: number, y: number }) {
     super(scene, x, y)
-    this.setScrollFactor(0)
+    this.setScrollFactor(0).setDepth(DEPTH.GUI)
 
     this.gameState = gameState
 

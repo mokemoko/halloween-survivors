@@ -29,23 +29,28 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-    if (this.body instanceof Phaser.Physics.Arcade.Body) {
-      this.body.setVelocity(0)
-      if (this.keys.up.isDown) {
-        this.body.setVelocityY(-100)
-        this.anims.play('playerWalk')
-      } else if (this.keys.down.isDown) {
-        this.body.setVelocityY(100)
-        this.anims.stop()
-        this.setFrame(1)
-      }
-      if (this.keys.left.isDown) {
-        this.body.setVelocityX(-100)
-      } else if (this.keys.right.isDown) {
-        this.body.setVelocityX(100)
-      }
+    const velocity: [number, number] = [0, 0]
+    const body = this.body as Phaser.Physics.Arcade.Body
+    if (this.keys.up.isDown) {
+      velocity[1] = -100
+    } else if (this.keys.down.isDown) {
+      velocity[1] = 100
     }
-    this.gameState.position = [this.body.position.x, this.body.position.y]
+    if (this.keys.left.isDown) {
+      velocity[0] = -100
+    } else if (this.keys.right.isDown) {
+      velocity[0] = 100
+    }
+    body.setVelocity(...velocity)
+
+    if (velocity[0] === 0 && velocity[1] === 0) {
+      this.anims.stop()
+      this.setFrame(1)
+    } else if (!this.anims.isPlaying) {
+      this.anims.play('playerWalk')
+    }
+
+    this.gameState.position = [body.position.x, body.position.y]
   }
 
   endGame() {

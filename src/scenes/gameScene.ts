@@ -36,13 +36,16 @@ export class GameScene extends Phaser.Scene {
 
     this.enemies = this.add.group({ classType: Enemy })
     this.time.addEvent({
-      delay: 5000,
-      callback: () => this.enemies.add(new Enemy({
-        scene: this,
-        gameState: this.gameState,
-        x: 0,
-        y: 0,
-      })),
+      delay: 500,
+      callback: () => {
+        const rad = Math.PI * 2 * Math.random()
+        this.enemies.add(new Enemy({
+          scene: this,
+          gameState: this.gameState,
+          x: this.gameState.position[0] + 500 * Math.cos(rad),
+          y: this.gameState.position[1] + 500 * Math.sin(rad),
+        }))
+      },
       callbackScope: this,
       loop: true,
     })
