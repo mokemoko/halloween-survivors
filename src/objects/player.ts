@@ -1,16 +1,22 @@
+import { GameState } from '../state'
+import { DEPTH } from '../constant'
+
 interface PlayerParams {
   scene: Phaser.Scene
+  gameState: GameState
   x: number
   y: number
 }
 
 export class Player extends Phaser.GameObjects.Sprite {
   private keys: Record<string, Phaser.Input.Keyboard.Key>
+  private gameState: GameState
 
-  constructor({ scene, x, y }: PlayerParams) {
+  constructor({ scene, gameState, x, y }: PlayerParams) {
     super(scene, x, y, 'player', 1)
+    this.setScale(2).setDepth(DEPTH.PLAYER)
 
-    this.setScale(2)
+    this.gameState = gameState
 
     this.setupAnim()
     this.setupKey()
@@ -36,6 +42,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(100)
       }
     }
+    this.gameState.position = [this.body.position.x, this.body.position.y]
   }
 
   setupAnim() {

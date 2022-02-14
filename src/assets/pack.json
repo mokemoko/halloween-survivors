@@ -13,6 +13,11 @@
         "url": "/src/assets/other/top.png"
       },
       {
+        "type": "image",
+        "key": "map",
+        "url": "/src/assets/other/map.png"
+      },
+      {
         "type": "spritesheet",
         "key": "player",
         "url": "/src/assets/sprites/player.png",
