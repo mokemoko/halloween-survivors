@@ -87,6 +87,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   gameOver() {
+    if (this.gameState.isDead) {
+      return
+    }
     this.gameState.isDead = true
     this.time.removeAllEvents()
     this.player.endGame()
